@@ -1,18 +1,12 @@
 import { model, Schema } from 'mongoose';
+import { UserDTO } from '../services/User/UserDTO';
 
 export enum UserRole {
     ADMIN = 'admin',
     CONTENT_WRITER = 'content-writer',
 }
 
-export interface User {
-    name: string;
-    email: string;
-    password: string;
-    role: UserRole;
-}
-
-const userSchema = new Schema<User>({
+const userSchema = new Schema<UserDTO>({
     name: {
         type: String,
         required: true,
@@ -22,6 +16,7 @@ const userSchema = new Schema<User>({
     email: {
         type: String,
         required: true,
+        unique: true,
         max: 255,
         min: 6,
     },
@@ -39,4 +34,4 @@ const userSchema = new Schema<User>({
     },
 });
 
-export default model<User>('user', userSchema);
+export default model<UserDTO>('user', userSchema);

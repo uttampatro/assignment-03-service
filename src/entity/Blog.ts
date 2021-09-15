@@ -15,8 +15,6 @@ const blogSchema = new Schema({
     article: {
         type: String,
         required: true,
-        max: 255,
-        min: 3,
     },
     date: {
         type: Date,
