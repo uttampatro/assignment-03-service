@@ -39,8 +39,6 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     });
 });
 
-app.use(authMiddleware);
-
 //api middleware
 app.use('/v1', v1Router);
 
