@@ -1,12 +1,12 @@
 import { model, Schema } from 'mongoose';
-import { UserDTO } from '../services/User/UserDTO';
+import { SaveUserDTO } from '../services/User/UserDTO';
 
 export enum UserRole {
     ADMIN = 'admin',
     CONTENT_WRITER = 'content-writer',
 }
 
-const userSchema = new Schema<UserDTO>({
+const userSchema = new Schema<SaveUserDTO>({
     name: {
         type: String,
         required: true,
@@ -34,4 +34,4 @@ const userSchema = new Schema<UserDTO>({
     },
 });
 
-export default model<UserDTO>('user', userSchema);
+export default model<SaveUserDTO>('user', userSchema);
