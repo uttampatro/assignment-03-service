@@ -33,7 +33,10 @@ class UserController {
             if (!user) {
                 return res.status(404).send('error');
             }
-            const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
+            const token = jwt.sign(
+                { _id: user._id, role: user.role, email: user.email },
+                process.env.TOKEN_SECRET
+            );
             return res.header('auth-token', token).send(token);
         } catch (error) {
             console.log(error);
