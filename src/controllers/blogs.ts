@@ -1,13 +1,37 @@
 import { Request, Response } from 'express';
 import { UserRole } from '../entity/User';
+import { BlogService } from '../services';
 import { SaveUserDTO, UserDTO } from '../services/User/UserDTO';
 
 class BlogController {
-    getAllBlogs = async (req: Request, res: Response) => {
+    createBlog = async (req: Request, res: Response) => {
         try {
-            const user: UserDTO = (<any>req).decoded;
-            const { _id, email, role } = user;
-            return res.json({});
+            const userId = req.body.userId;
+            const title = req.body.title;
+            const article = req.body.article;
+            const blog = await BlogService.createBlog({
+                userId,
+                title,
+                article,
+            });
+            return res.json(blog);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                success: false,
+                message: 'Something went wrong',
+            });
+        }
+    };
+    fetchAllBlogs = async (req: Request, res: Response) => {
+        try {
+            // const user: UserDTO = (<any>req).decoded;
+            // const { _id, email, role } = user;
+
+            // if (role === UserRole.ADMIN) {
+            // }
+            const blogs = await BlogService.getAllBlogs();
+            return res.json(blogs);
         } catch (error) {
             console.log(error);
             return res.status(500).json({

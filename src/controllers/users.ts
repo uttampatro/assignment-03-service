@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
+import { UserRole } from '../entity/User';
 import { UserService } from '../services';
+import { UserDTO } from '../services/User/UserDTO';
 const jwt = require('jsonwebtoken');
 
 class UserController {
@@ -49,12 +51,27 @@ class UserController {
     deletingUser = async (req: Request, res: Response) => {
         try {
             const id = req.params.id;
-            const user = await deleteUser({
+            const users: UserDTO = (<any>req).decoded;
+            const user = await UserService.deleteUser({
                 _id: id,
             });
-            return res.json('delete user successfully');
+            // const { _id, name, email, role } = users;
+            // if (role === UserRole.ADMIN) {
+            // }
+            return res.send(user);
         } catch (error) {
             console.log(error);
+            return res.status(500).json({
+                success: false,
+                message: 'Something went wrong',
+            });
+        }
+    };
+    fetchAllUsers = async (req: Request, res: Response) => {
+        try {
+            const users = await UserService.getAllUsers();
+            return res.json(users);
+        } catch (error) {
             return res.status(500).json({
                 success: false,
                 message: 'Something went wrong',
@@ -64,6 +81,3 @@ class UserController {
 }
 
 export default new UserController();
-function deleteUser(arg0: { _id: string }) {
-    throw new Error('Function not implemented.');
-}

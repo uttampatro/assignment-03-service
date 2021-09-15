@@ -32,6 +32,10 @@ const userSchema = new Schema<SaveUserDTO>({
         default: UserRole.CONTENT_WRITER,
         required: true,
     },
+    blogs: {
+        type: Schema.Types.ObjectId,
+        ref: 'blog',
+    },
 });
 
 export default model<SaveUserDTO>('user', userSchema);

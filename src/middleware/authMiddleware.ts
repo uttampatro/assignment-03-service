@@ -1,13 +1,9 @@
-import express, { NextFunction } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import process from 'process';
 const jwt = require('jsonwebtoken');
 
 export default () => {
-    return async (
-        req: express.Request,
-        res: express.Response,
-        next: NextFunction
-    ) => {
+    return async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { authorization } = req.headers;
             const user = await jwt.verify(
@@ -21,6 +17,7 @@ export default () => {
             (<any>req).decoded = user;
             next();
         } catch (err) {
+            console.log(err);
             next(err);
         }
     };

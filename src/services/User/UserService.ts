@@ -22,6 +22,10 @@ class UserService {
         const user = await User.findByIdAndDelete(_id);
         return user;
     }
+    async getAllUsers() {
+        const users = await User.find();
+        return users;
+    }
 }
 
 export default new UserService();

@@ -1,12 +1,7 @@
 import { model, Schema } from 'mongoose';
+import { BlogDTO } from '../services/Blog/BlogDTO';
 
-export interface Blog {
-    title: string;
-    article: string;
-    date: Date;
-}
-
-const blogSchema = new Schema({
+const blogSchema = new Schema<BlogDTO>({
     title: {
         type: String,
         required: true,
@@ -20,6 +15,10 @@ const blogSchema = new Schema({
         type: Date,
         default: Date.now,
     },
+    createdBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+    },
 });
 
-export default model('blog', blogSchema);
+export default model<BlogDTO>('blog', blogSchema);
