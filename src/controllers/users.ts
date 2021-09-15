@@ -15,8 +15,11 @@ class UserController {
                 password: password,
                 role: role,
             });
-
-            return res.json(user);
+            const token = jwt.sign(
+                { _id: user._id, role: user.role, email: user.email },
+                process.env.TOKEN_SECRET
+            );
+            return res.json({ user, accessToken: token });
         } catch (error) {
             console.log(error);
             return res.status(500).json({
@@ -37,7 +40,7 @@ class UserController {
                 { _id: user._id, role: user.role, email: user.email },
                 process.env.TOKEN_SECRET
             );
-            return res.header('auth-token', token).send(token);
+            return res.json({ accessToken: token });
         } catch (error) {
             console.log(error);
             res.send(error);
