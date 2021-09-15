@@ -12,7 +12,7 @@ router.get('/', (_req: Request, res: Response) => {
 // User controller
 router.post('/register', UserController.registerUser);
 router.post('/login', UserController.loginUser);
-// router.use(authMiddleware);
+router.use(authMiddleware());
 router.delete('/deleteUser/:id', UserController.deletingUser);
 router.get('/users', UserController.fetchAllUsers);
 router.post('/createBlog', BlogController.createBlog);

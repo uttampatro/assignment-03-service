@@ -25,11 +25,13 @@ class BlogController {
     };
     fetchAllBlogs = async (req: Request, res: Response) => {
         try {
-            // const user: UserDTO = (<any>req).decoded;
-            // const { _id, email, role } = user;
+            const user: UserDTO = (<any>req).decoded;
+            const { _id, email, role } = user;
 
-            // if (role === UserRole.ADMIN) {
-            // }
+            if (role !== UserRole.ADMIN) {
+                throw new Error('Access restricted');
+            }
+
             const blogs = await BlogService.getAllBlogs();
             return res.json(blogs);
         } catch (error) {

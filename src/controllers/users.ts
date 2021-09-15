@@ -69,6 +69,11 @@ class UserController {
     };
     fetchAllUsers = async (req: Request, res: Response) => {
         try {
+            const user: UserDTO = (<any>req).decoded;
+            const { _id, email, role } = user;
+            if (role !== UserRole.ADMIN) {
+                throw new Error('Access restricted');
+            }
             const users = await UserService.getAllUsers();
             return res.json(users);
         } catch (error) {
