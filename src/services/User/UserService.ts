@@ -1,5 +1,5 @@
 import User from '../../entity/User';
-import { SaveUserDTO, UserDTO } from './UserDTO';
+import { deleteDTO, SaveUserDTO, UserDTO } from './UserDTO';
 
 class UserService {
     async register(dto: UserDTO) {
@@ -18,7 +18,10 @@ class UserService {
         const user = await User.findOne({ email, password });
         return user;
     }
-    async deleteUser() {}
+    async deleteUser(_id: any) {
+        const user = await User.findByIdAndDelete(_id);
+        return user;
+    }
 }
 
 export default new UserService();

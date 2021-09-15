@@ -40,6 +40,24 @@ class UserController {
             res.send(error);
         }
     };
+    deletingUser = async (req: Request, res: Response) => {
+        try {
+            const id = req.params.id;
+            const user = await deleteUser({
+                _id: id,
+            });
+            return res.json('delete user successfully');
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                success: false,
+                message: 'Something went wrong',
+            });
+        }
+    };
 }
 
 export default new UserController();
+function deleteUser(arg0: { _id: string }) {
+    throw new Error('Function not implemented.');
+}
