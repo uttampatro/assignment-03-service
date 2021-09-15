@@ -7,7 +7,7 @@ export interface UserDTO {
     password: string;
     role: UserRole;
 }
-export interface deleteDTO {
+export interface DeleteDTO {
     name: string;
     email: string;
     role: UserRole;
