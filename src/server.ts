@@ -31,9 +31,6 @@ mongoose.connect(process.env.DB_CONNECT, {
 });
 console.log('connected to DB');
 
-//api middleware
-app.use('/v1', v1Router);
-
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     let message = err.message;
     res.status(err.statusCode || 500).json({
@@ -43,6 +40,9 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use(authMiddleware);
+
+//api middleware
+app.use('/v1', v1Router);
 
 //listener
 app.listen(port, () => console.log(`Server is up and running on  ${port}`));
