@@ -7,6 +7,10 @@ const blogSchema = new Schema<BlogDTO>({
         required: true,
         min: 3,
     },
+    imageUrl: {
+        type: String,
+        required: true,
+    },
     article: {
         type: String,
         required: true,

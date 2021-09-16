@@ -9,10 +9,12 @@ class BlogController {
             const userId = req.body.userId;
             const title = req.body.title;
             const article = req.body.article;
+            const imageUrl = req.body.imageUrl;
             const blog = await BlogService.createBlog({
                 userId,
                 title,
                 article,
+                imageUrl,
             });
             return res.json(blog);
         } catch (error) {

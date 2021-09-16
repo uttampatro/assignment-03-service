@@ -4,7 +4,7 @@ import { CreateBlogDTO } from './BlogDTO';
 
 class BlogService {
     async createBlog(dto: CreateBlogDTO) {
-        const { title, article, userId } = dto;
+        const { title, article, userId, imageUrl } = dto;
         const user = await User.findOne({ _id: userId }).select([
             'name',
             'email',
@@ -12,14 +12,15 @@ class BlogService {
         const blog = new Blog({
             title: title,
             article: article,
+            imageUrl: imageUrl,
             createdBy: user!,
         });
         await blog.save();
         return blog;
     }
-    async getAllBlogs(){
-        const blogs = await Blog.find()
-        return blogs
+    async getAllBlogs() {
+        const blogs = await Blog.find();
+        return blogs;
     }
 }
 export default new BlogService();
