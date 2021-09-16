@@ -22,5 +22,17 @@ class BlogService {
         const blogs = await Blog.find();
         return blogs;
     }
+    async getBlogByBlogId(id: any) {
+        const blog = await Blog.findOne({ _id: id });
+        return blog;
+    }
+    async deleteBlog(_id: any) {
+        const blog = await Blog.findByIdAndDelete(_id);
+        return blog;
+    }
+    async getBlogsByWriter(id: any) {
+        const blogs = await Blog.find({ _id: id });
+        return blogs;
+    }
 }
 export default new BlogService();

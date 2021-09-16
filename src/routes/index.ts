@@ -23,8 +23,9 @@ router.delete('/user/:id', UserController.deletingUser);
 
 // Blogs
 router.get('/blogs', BlogController.fetchAllBlogs);
-router.get('/blogsByWriter', BlogController.fetchAllBlogs);
-router.post('/blog', BlogController.createBlog);
-router.delete('/blog', BlogController.deleteBlog);
+router.get('/blog/:id', BlogController.fetchBlogByBlogId);
+router.get('/blogsByWriter/:id', BlogController.fetchBlogsByWriter);
+router.post('/createBlog', BlogController.createBlog);
+router.delete('/blog/:id', BlogController.deleteBlog);
 
 export default router;

@@ -45,9 +45,17 @@ class BlogController {
         }
     };
 
-    getBlogsByWriter = async (req: Request, res: Response) => {
+    fetchBlogsByWriter = async (req: Request, res: Response) => {
         try {
-            return res.json({});
+            const user: UserDTO = (<any>req).decoded;
+            const { _id, email, role } = user;
+
+            if (role !== UserRole.CONTENT_WRITER) {
+                throw new Error('Access restricted');
+            }
+            const id = req.params.id;
+            const blogs = await BlogService.getBlogsByWriter(id);
+            return res.json(blogs);
         } catch (error) {
             console.log(error);
             res.send(error);
@@ -63,12 +71,30 @@ class BlogController {
                 throw new Error('Access restricted');
             }
 
-            // TODO:
+            const id = req.params.id;
+            const blog = await BlogService.deleteBlog({
+                _id: id,
+            });
 
-            return res.json({});
+            return res.send(blog);
         } catch (error) {
             console.log(error);
             res.send(error);
+        }
+    };
+    fetchBlogByBlogId = async (req: Request, res: Response) => {
+        try {
+            const id = req.params.id;
+            const blog = await BlogService.getBlogByBlogId({
+                _id: id,
+            });
+            return res.json(blog);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                success: false,
+                message: 'Something went wrong',
+            });
         }
     };
 }
