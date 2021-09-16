@@ -6,8 +6,8 @@ export default () => {
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { authorization } = req.headers;
-            const user = await jwt.verify(
-                authorization,
+            const user = jwt.verify(
+                authorization.replace(/['"]+/g, ''),
                 process.env.TOKEN_SECRET
             );
             if (!user) {
