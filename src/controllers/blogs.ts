@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { UserRole } from '../entity/User';
-import { BlogService } from '../services';
+import BlogService from '../services/Blog/BlogService';
 import { SaveUserDTO, UserDTO } from '../services/User/UserDTO';
 
 class BlogController {

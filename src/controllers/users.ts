@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { UserRole } from '../entity/User';
-import { UserService } from '../services';
+import UserService from '../services/User/UserService';
+
 import { UserDTO } from '../services/User/UserDTO';
 const jwt = require('jsonwebtoken');
 
