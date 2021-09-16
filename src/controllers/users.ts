@@ -50,14 +50,17 @@ class UserController {
     };
     deletingUser = async (req: Request, res: Response) => {
         try {
+            const userE: UserDTO = (<any>req).decoded;
+            const { _id, email, role } = userE;
+
+            if (role !== UserRole.ADMIN) {
+                throw new Error('Access restricted');
+            }
             const id = req.params.id;
-            const users: UserDTO = (<any>req).decoded;
             const user = await UserService.deleteUser({
                 _id: id,
             });
-            // const { _id, name, email, role } = users;
-            // if (role === UserRole.ADMIN) {
-            // }
+
             return res.send(user);
         } catch (error) {
             console.log(error);
