@@ -86,6 +86,20 @@ class UserController {
             });
         }
     };
+
+    fetchUserByAccessToken = async (req: Request, res: Response) => {
+        try {
+            const user: UserDTO = (<any>req).decoded;
+            const { _id } = user;
+            const data = await UserService.getUser(_id);
+            return res.json(data);
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: 'Something went wrong',
+            });
+        }
+    };
 }
 
 export default new UserController();

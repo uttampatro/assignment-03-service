@@ -9,13 +9,22 @@ router.get('/', (_req: Request, res: Response) => {
     res.send('server up and running');
 });
 
-// User controller
+// Auth
 router.post('/register', UserController.registerUser);
 router.post('/login', UserController.loginUser);
+
+// Middleware
 router.use(authMiddleware());
-router.delete('/deleteUser/:id', UserController.deletingUser);
+
+// Users
+router.get('/user/me', UserController.fetchAllUsers);
 router.get('/users', UserController.fetchAllUsers);
-router.post('/createBlog', BlogController.createBlog);
-router.get('/getAllBlogs', BlogController.fetchAllBlogs);
+router.delete('/user/:id', UserController.deletingUser);
+
+// Blogs
+router.get('/blogs', BlogController.fetchAllBlogs);
+router.get('/blogsByWriter', BlogController.fetchAllBlogs);
+router.post('/blog', BlogController.createBlog);
+router.delete('/blog', BlogController.deleteBlog);
 
 export default router;
